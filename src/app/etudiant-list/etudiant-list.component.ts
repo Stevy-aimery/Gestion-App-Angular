@@ -1,23 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EtudiantService } from '../services/etudiant.service';
+import { EtablissementService } from '../services/etablissement.service';
 import { Etudiant } from '../models/etudiant.model';
+import { Etablissement } from '../models/etablissement.model';
+import { EtudiantEditComponent } from '../etudiant-edit/etudiant-edit.component';
+
 
 @Component({
   selector: 'app-etudiant-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, EtudiantEditComponent],
   templateUrl: './etudiant-list.component.html',
   styleUrls: ['./etudiant-list.component.css']
 })
 
 export class EtudiantListComponent implements OnInit {
   etudiants: Etudiant[] = [];
+  etudiantToEdit: Etudiant | null = null;
+  etablissements: Etablissement[] = [];
 
-  constructor(private etudiantService: EtudiantService) {}
+  constructor(
+    private etudiantService: EtudiantService,
+    private etablissementService: EtablissementService
+  ) {}
 
   ngOnInit(): void {
     this.loadEtudiants();
+    this.loadEtablissements();
   }
 
   loadEtudiants(): void {
@@ -26,14 +36,19 @@ export class EtudiantListComponent implements OnInit {
     );
   }
 
+  loadEtablissements(): void {
+    this.etablissementService.getEtablissements().subscribe(
+      etablissements => this.etablissements = etablissements
+    );
+  }
+
   getEtablissementNom(etablissementId: number): string {
-    // TODO: Implement this method to return the establishment name
-    return 'Nom de l\'établissement';
+    const etablissement = this.etablissements.find(e => e.id === etablissementId);
+    return etablissement ? etablissement.nom : 'Non assigné';
   }
 
   onEdit(etudiant: Etudiant): void {
-    // TODO: Implement edit functionality
-    console.log('Edit etudiant:', etudiant);
+    this.etudiantToEdit = { ...etudiant };
   }
 
   onDelete(id: number): void {
@@ -42,6 +57,15 @@ export class EtudiantListComponent implements OnInit {
         this.loadEtudiants();
       });
     }
+  }
+
+  onSave(etudiant: Etudiant): void {
+    this.loadEtudiants();
+    this.etudiantToEdit = null;
+  }
+
+  onCancel(): void {
+    this.etudiantToEdit = null;
   }
 }
 

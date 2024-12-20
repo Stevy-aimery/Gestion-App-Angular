@@ -1,0 +1,39 @@
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': etudiant ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modifier l'étudiant</h5>
+        <button type="button" class="btn-close" (click)="cancel()"></button>
+      </div>
+      <div class="modal-body">
+        <form *ngIf="etudiantForm" [formGroup]="etudiantForm">
+          <div class="mb-3">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="nom" formControlName="nom" required>
+          </div>
+          <div class="mb-3">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="prenom" formControlName="prenom" required>
+          </div>
+          <div class="mb-3">
+            <label for="age" class="form-label">Âge</label>
+            <input type="number" class="form-control" id="age" formControlName="age" required>
+          </div>
+          <div class="mb-3">
+            <label for="etablissement" class="form-label">Établissement</label>
+            <select class="form-select" id="etablissement" formControlName="etablissementId" required>
+              <option [ngValue]="null" disabled>Sélectionnez un établissement</option>
+              <option *ngFor="let etablissement of etablissements" [ngValue]="etablissement.id">
+                {{ etablissement.nom }}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>

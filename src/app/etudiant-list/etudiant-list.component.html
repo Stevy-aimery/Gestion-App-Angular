@@ -20,13 +20,15 @@
         <button class="btn btn-sm btn-primary me-2" (click)="onEdit(etudiant)">
           <i class="bi bi-pencil"></i>
         </button>
-        <button
-          class="btn btn-sm btn-danger"
-          (click)="etudiant.id && onDelete(etudiant.id)"
-        >
+        <button class="btn btn-sm btn-danger" (click)="etudiant.id && onDelete(etudiant.id)">
           <i class="bi bi-trash"></i>
         </button>
       </td>
     </tr>
   </tbody>
 </table>
+<app-etudiant-edit
+  [etudiant]="etudiantToEdit"
+  (saveEvent)="onSave($event)"
+  (cancelEvent)="onCancel()"
+></app-etudiant-edit>

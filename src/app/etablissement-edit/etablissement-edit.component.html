@@ -1,0 +1,26 @@
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': etablissement ? 'block' : 'none'}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modifier l'établissement</h5>
+          <button type="button" class="btn-close" (click)="cancel()"></button>
+        </div>
+        <div class="modal-body">
+          <form *ngIf="etablissement">
+            <div class="mb-3">
+              <label for="nom" class="form-label">Nom</label>
+              <input type="text" class="form-control" id="nom" [(ngModel)]="etablissement.nom" name="nom" required>
+            </div>
+            <div class="mb-3">
+              <label for="adresse" class="form-label">Adresse</label>
+              <input type="text" class="form-control" id="adresse" [(ngModel)]="etablissement.adresse" name="adresse" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="save()">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>

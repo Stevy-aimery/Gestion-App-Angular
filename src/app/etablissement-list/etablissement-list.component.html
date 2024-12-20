@@ -23,3 +23,8 @@
     </tr>
   </tbody>
 </table>
+<app-etablissement-edit
+  [etablissement]="etablissementToEdit"
+  (saveEvent)="onSave($event)"
+  (cancelEvent)="onCancel()"
+></app-etablissement-edit>
