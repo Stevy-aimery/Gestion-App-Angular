@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-home',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './app.component.html',
-  styles: []
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
+  // styles: []
 })
-export class AppComponent {
-  title = 'gestion-etudiants';
-}
+export class HomeComponent {}
 

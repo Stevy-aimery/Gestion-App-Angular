@@ -1,0 +1,14 @@
+<form [formGroup]="etablissementForm" (ngSubmit)="onSubmit()" class="mb-3">
+  <div class="mb-3">
+    <label for="nom" class="form-label">Nom de l'établissement:</label>
+    <input id="nom" type="text" formControlName="nom" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label for="adresse" class="form-label">Adresse:</label>
+    <input id="adresse" type="text" formControlName="adresse" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!etablissementForm.valid">Ajouter Établissement</button>
+</form>
+<div *ngIf="message" class="alert" [ngClass]="{'alert-success': success, 'alert-danger': !success}" role="alert">
+  {{ message }}
+</div>

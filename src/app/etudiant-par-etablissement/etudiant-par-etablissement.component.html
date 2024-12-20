@@ -1,0 +1,19 @@
+<div class="mb-3">
+  <label for="etablissement" class="form-label">Sélectionnez un établissement:</label>
+  <select id="etablissement" (change)="onEtablissementChange($any($event.target).value)" class="form-select">
+    <option value="">Tous les établissements</option>
+    <option *ngFor="let etablissement of etablissements" [value]="etablissement.id">
+      {{ etablissement.nom }}
+    </option>
+  </select>
+</div>
+
+<ul *ngIf="etudiants.length > 0" class="list-group">
+  <li *ngFor="let etudiant of etudiants" class="list-group-item">
+    {{ etudiant.nom }} {{ etudiant.prenom }} - {{ etudiant.age }} ans
+  </li>
+</ul>
+
+<div *ngIf="etudiants.length === 0 && selectedEtablissementId" class="alert alert-info" role="alert">
+  Aucun étudiant trouvé pour cet établissement.
+</div>

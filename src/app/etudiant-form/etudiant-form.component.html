@@ -1,0 +1,27 @@
+<form [formGroup]="etudiantForm" (ngSubmit)="onSubmit()" class="mb-3">
+  <div class="mb-3">
+    <label for="nom" class="form-label">Nom:</label>
+    <input id="nom" type="text" formControlName="nom" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label for="prenom" class="form-label">Prénom:</label>
+    <input id="prenom" type="text" formControlName="prenom" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label for="age" class="form-label">Âge:</label>
+    <input id="age" type="number" formControlName="age" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label for="etablissement" class="form-label">Établissement:</label>
+    <select id="etablissement" formControlName="etablissementId" class="form-select" required>
+      <option value="">Sélectionnez un établissement</option>
+      <option *ngFor="let etablissement of etablissements" [value]="etablissement.id">
+        {{ etablissement.nom }}
+      </option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!etudiantForm.valid">Ajouter Étudiant</button>
+</form>
+<div *ngIf="message" class="alert" [ngClass]="{'alert-success': success, 'alert-danger': !success}" role="alert">
+  {{ message }}
+</div>
