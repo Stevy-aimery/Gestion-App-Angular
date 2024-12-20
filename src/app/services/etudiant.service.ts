@@ -20,17 +20,26 @@ export class EtudiantService {
     etudiant.id = this.etudiants.length + 1;
     this.etudiants.push(etudiant);
     this.etudiantsSubject.next([...this.etudiants]);
-    console.log('Étudiant ajouté:', etudiant);
-    console.log('Liste des étudiants:', this.etudiants);
+  }
+
+  updateEtudiant(updatedEtudiant: Etudiant): Observable<void> {
+    const index = this.etudiants.findIndex(e => e.id === updatedEtudiant.id);
+    if (index !== -1) {
+      this.etudiants[index] = updatedEtudiant;
+      this.etudiantsSubject.next([...this.etudiants]);
+    }
+    return new Observable(observer => observer.complete());
+  }
+
+  deleteEtudiant(id: number): Observable<void> {
+    this.etudiants = this.etudiants.filter(e => e.id !== id);
+    this.etudiantsSubject.next([...this.etudiants]);
+    return new Observable(observer => observer.complete());
   }
 
   getEtudiantsByEtablissement(etablissementId: number): Observable<Etudiant[]> {
     return this.etudiantsSubject.pipe(
-      map(etudiants => {
-        const filteredEtudiants = etudiants.filter(etudiant => etudiant.etablissementId === etablissementId);
-        console.log(`Étudiants pour l'établissement ${etablissementId}:`, filteredEtudiants);
-        return filteredEtudiants;
-      })
+      map(etudiants => etudiants.filter(etudiant => etudiant.etablissementId === etablissementId))
     );
   }
 }
